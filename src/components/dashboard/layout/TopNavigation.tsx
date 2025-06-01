@@ -17,7 +17,6 @@ import {
 } from "@/components/ui/tooltip";
 import { Bell, Home, Search, Settings, User } from "lucide-react";
 import { Link } from "react-router-dom";
-import { useAuth } from "../../../../supabase/auth";
 
 interface TopNavigationProps {
   onSearch?: (query: string) => void;
@@ -31,10 +30,6 @@ const TopNavigation = ({
     { id: "2", title: "Meeting reminder" },
   ],
 }: TopNavigationProps) => {
-  const { user, signOut } = useAuth();
-
-  if (!user) return null;
-
   return (
     <div className="w-full h-16 border-b border-navy-700 bg-navy-800/80 backdrop-blur-md flex items-center justify-between px-6 fixed top-0 z-50 shadow-md">
       <div className="flex items-center gap-4 flex-1">
@@ -101,10 +96,10 @@ const TopNavigation = ({
           <DropdownMenuTrigger asChild>
             <Avatar className="h-8 w-8 hover:cursor-pointer">
               <AvatarImage
-                src={`https://api.dicebear.com/7.x/avataaars/svg?seed=${user.email}`}
-                alt={user.email || ""}
+                src="https://api.dicebear.com/7.x/avataaars/svg?seed=admin"
+                alt="Admin User"
               />
-              <AvatarFallback>{user.email?.[0].toUpperCase()}</AvatarFallback>
+              <AvatarFallback>A</AvatarFallback>
             </Avatar>
           </DropdownMenuTrigger>
           <DropdownMenuContent
@@ -112,7 +107,7 @@ const TopNavigation = ({
             className="rounded-xl border-navy-700 bg-navy-800 shadow-lg"
           >
             <DropdownMenuLabel className="text-xs text-gray-400">
-              {user.email}
+              admin@example.com
             </DropdownMenuLabel>
             <DropdownMenuSeparator className="bg-navy-700" />
             <DropdownMenuItem className="cursor-pointer text-gray-300 focus:bg-navy-700">
@@ -122,13 +117,6 @@ const TopNavigation = ({
             <DropdownMenuItem className="cursor-pointer text-gray-300 focus:bg-navy-700">
               <Settings className="mr-2 h-4 w-4" />
               Settings
-            </DropdownMenuItem>
-            <DropdownMenuSeparator className="bg-navy-700" />
-            <DropdownMenuItem
-              className="cursor-pointer text-gray-300 focus:bg-navy-700"
-              onSelect={() => signOut()}
-            >
-              Log out
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>

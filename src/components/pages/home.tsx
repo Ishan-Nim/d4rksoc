@@ -1,20 +1,8 @@
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { ChevronRight, Settings, User } from "lucide-react";
+import { ChevronRight, Settings } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
-import { useAuth } from "../../../supabase/auth";
 
 export default function LandingPage() {
-  const { user, signOut } = useAuth();
-
   const navigate = useNavigate();
 
   return (
@@ -28,71 +16,19 @@ export default function LandingPage() {
             </Link>
           </div>
           <div className="flex items-center space-x-4">
-            {user ? (
-              <div className="flex items-center gap-4">
-                <Link to="/dashboard">
-                  <Button
-                    variant="ghost"
-                    className="text-sm font-light hover:text-gray-300"
-                  >
-                    Dashboard
-                  </Button>
-                </Link>
-                <DropdownMenu>
-                  <DropdownMenuTrigger asChild>
-                    <Avatar className="h-8 w-8 hover:cursor-pointer">
-                      <AvatarImage
-                        src={`https://api.dicebear.com/7.x/avataaars/svg?seed=${user.email}`}
-                        alt={user.email || ""}
-                      />
-                      <AvatarFallback>
-                        {user.email?.[0].toUpperCase()}
-                      </AvatarFallback>
-                    </Avatar>
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent
-                    align="end"
-                    className="rounded-xl border-none shadow-lg bg-gray-800 text-white"
-                  >
-                    <DropdownMenuLabel className="text-xs text-gray-300">
-                      {user.email}
-                    </DropdownMenuLabel>
-                    <DropdownMenuSeparator className="bg-gray-700" />
-                    <DropdownMenuItem className="cursor-pointer hover:bg-gray-700">
-                      <User className="mr-2 h-4 w-4" />
-                      Profile
-                    </DropdownMenuItem>
-                    <DropdownMenuItem className="cursor-pointer hover:bg-gray-700">
-                      <Settings className="mr-2 h-4 w-4" />
-                      Settings
-                    </DropdownMenuItem>
-                    <DropdownMenuSeparator className="bg-gray-700" />
-                    <DropdownMenuItem
-                      className="cursor-pointer hover:bg-gray-700"
-                      onSelect={() => signOut()}
-                    >
-                      Log out
-                    </DropdownMenuItem>
-                  </DropdownMenuContent>
-                </DropdownMenu>
-              </div>
-            ) : (
-              <>
-                <Link to="/login">
-                  <Button
-                    variant="ghost"
-                    className="text-sm font-light hover:text-gray-300"
-                  >
-                    Sign In
-                  </Button>
-                </Link>
-                <Link to="/signup">
-                  <Button className="rounded-full bg-red-600 text-white hover:bg-red-700 text-sm px-4">
-                    Get Started
-                  </Button>
-                </Link>
-              </>
-            )}
+            <Link to="/dashboard">
+              <Button
+                variant="ghost"
+                className="text-sm font-light hover:text-gray-300"
+              >
+                Dashboard
+              </Button>
+            </Link>
+            <Link to="/dashboard">
+              <Button className="rounded-full bg-red-600 text-white hover:bg-red-700 text-sm px-4">
+                Get Started
+              </Button>
+            </Link>
           </div>
         </div>
       </header>
@@ -110,7 +46,7 @@ export default function LandingPage() {
             <Link to="/" className="flex items-center hover:underline">
               Learn more <ChevronRight className="h-4 w-4" />
             </Link>
-            <Link to="/signup" className="flex items-center hover:underline">
+            <Link to="/dashboard" className="flex items-center hover:underline">
               Get started <ChevronRight className="h-4 w-4" />
             </Link>
           </div>

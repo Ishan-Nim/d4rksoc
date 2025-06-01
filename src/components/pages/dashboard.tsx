@@ -7,6 +7,7 @@ import SecurityTabs from "../dashboard/SecurityTabs";
 import { Button } from "@/components/ui/button";
 import { RefreshCw, Shield } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { supabase } from "../../../supabase/supabase";
 
 const Home = () => {
   const [loading, setLoading] = useState(false);

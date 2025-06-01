@@ -4,6 +4,7 @@ import { AlertTriangle, Users, Globe, Mail } from "lucide-react";
 import { LoadingSpinner } from "@/components/ui/loading-spinner";
 import { supabase } from "../../../supabase/supabase";
 import { SOCRADAR_API_KEY } from "../../../supabase/functions/_shared/constants";
+import { useEffect as useEffectOriginal } from "react";
 
 interface SecurityMetric {
   title: string;

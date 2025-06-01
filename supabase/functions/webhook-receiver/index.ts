@@ -1,5 +1,8 @@
 import { corsHeaders } from "@shared/constants.ts";
 
+// Store received webhooks in memory for demo purposes
+const receivedWebhooks: any[] = [];
+
 Deno.serve(async (req) => {
   // Handle CORS preflight requests
   if (req.method === "OPTIONS") {
@@ -11,14 +14,26 @@ Deno.serve(async (req) => {
     const payload = await req.json();
     console.log("Received webhook payload:", payload);
 
-    // Process the webhook data
-    // Here you would typically store this in your database
-    // For now, we'll just log it and return a success response
+    // Add timestamp to the webhook
+    const webhookWithTimestamp = {
+      ...payload,
+      receivedAt: new Date().toISOString(),
+    };
+
+    // Store the webhook (in a real app, you'd save to a database)
+    receivedWebhooks.push(webhookWithTimestamp);
+
+    // Keep only the last 100 webhooks for demo purposes
+    if (receivedWebhooks.length > 100) {
+      receivedWebhooks.shift();
+    }
 
     return new Response(
       JSON.stringify({
         success: true,
         message: "Webhook received successfully",
+        webhookId: `wh_${Math.random().toString(36).substring(2, 15)}`,
+        totalReceived: receivedWebhooks.length,
       }),
       {
         headers: { ...corsHeaders, "Content-Type": "application/json" },

@@ -16,26 +16,29 @@ Deno.serve(async (req) => {
       });
     }
 
-    // For now, return mock data since we don't have actual API access
-    // In a real implementation, you would make API calls to SOCRadar here
+    console.log("Processing security data request with API key:", apiKey);
+
+    // Enhanced mock data to simulate real API responses
     const mockData = {
       incidents: {
-        count: 0,
-        today: 0,
+        count: 24,
+        today: 5,
       },
       employees: {
-        count: 0,
-        passwordReuse: 0,
+        count: 37,
+        passwordReuse: 42,
       },
       darkWeb: {
-        count: 0,
-        thisWeek: 0,
+        count: 18,
+        thisWeek: 8,
       },
       domains: {
-        count: 0,
-        atRisk: 0,
+        count: 12,
+        atRisk: 3,
       },
     };
+
+    console.log("Returning security data:", mockData);
 
     return new Response(JSON.stringify(mockData), {
       headers: { ...corsHeaders, "Content-Type": "application/json" },
